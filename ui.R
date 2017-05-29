@@ -30,9 +30,9 @@ shinyUI(pageWithSidebar(
   sidebarPanel(
     textInput("text", label = h3("Search Artists"), value = "Enter text..."),
     radioButtons("radio", label = h3("Select Region"), 
-                       choices = list("Asia" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
+                       choices = list("Asia Pacific" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
     conditionalPanel(condition = "input.radio == '1'",
-                     selectInput("Asia", "Select Country",choices = c("Australia", "Japan", "Hong Kong", "Indonesia","Malaysia","New Zealand","Philippines","Singapore","Taiwan"))),
+                     selectInput("Asia Pacific", "Select Country",choices = c("Australia", "Japan", "Hong Kong", "Indonesia","Malaysia","New Zealand","Philippines","Singapore","Taiwan"))),
     conditionalPanel(condition = "input.radio == '2'",
                      selectInput("Europe", "Select Country",choices = c("Andorra", "Austria","Belgium", "Bulgaria","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Germany","Greece","Hungary"
                                                                         ,"Iceland","Ireland","Italy","Latvia","Liechtenstein","Lithuania","Luxembourg","Malta","Monaco","Netherlands","Norway","Poland","Portugal"
@@ -45,8 +45,7 @@ shinyUI(pageWithSidebar(
     )
   ),
   mainPanel(
-    h3(textOutput("add1")),
-    imageOutput("plot1")
-  )  
+    DT::dataTableOutput('ex3')
+  )
 )
 )
