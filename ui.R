@@ -25,17 +25,24 @@
 # )
 library(shiny)
 shinyUI(pageWithSidebar(
-  headerPanel("Global Temperature"),
+  headerPanel("Final Project"),
   
   sidebarPanel(
-    checkboxGroupInput("scen1", label = h3("Select 1 Map #1 Scenario"), 
-                       choices = list("pre-2000" = "past", "post-2000: 850 ppm by 2100 (a2)"="a2","post-2000: 550 ppm by 2100 (b1)"="b1"), selected = "past"),
-    conditionalPanel(condition = "input.scen1 == 'past'",
-                     selectInput("yearspred1", "Select Map #1 Years Hindcasted",choices = c("1920-1939", "1940-1959", "1960-1979", "1980-1999"), selected="1920-1939", multiple=FALSE)),
-    conditionalPanel(condition = "input.scen1 == 'a2'",
-                     selectInput("yearspred2", "Select Map #1 Years Predicted",choices = c("2020-2039", "2040-2059","2060-2079", "2080-2099")), selected="2020-2039", multiple=FALSE),
-    conditionalPanel(condition = "input.scen1 == 'b1'", 
-                     selectInput("yearspred3", "Select Map #1 Years Predicted",choices = c("2020-2039", "2040-2059", "2060-2079", "2080-2099"), selected="2020-2039", multiple=FALSE))
+    textInput("text", label = h3("Search Artists"), value = "Enter text..."),
+    radioButtons("radio", label = h3("Select Region"), 
+                       choices = list("Asia" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
+    conditionalPanel(condition = "input.radio == '1'",
+                     selectInput("Asia", "Select Country",choices = c("Australia", "Japan", "Hong Kong", "Indonesia","Malaysia","New Zealand","Philippines","Singapore","Taiwan"))),
+    conditionalPanel(condition = "input.radio == '2'",
+                     selectInput("Europe", "Select Country",choices = c("Andorra", "Austria","Belgium", "Bulgaria","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Germany","Greece","Hungary"
+                                                                        ,"Iceland","Ireland","Italy","Latvia","Liechtenstein","Lithuania","Luxembourg","Malta","Monaco","Netherlands","Norway","Poland","Portugal"
+                                                                        ,"Slovakia","Spain","Sweden","Switzerland","Turkey","United Kingdom"))),
+    conditionalPanel(condition = "input.radio == '3'", 
+                     selectInput("Latin America", "Select Country",choices = c("Argentina", "Bolivia", "Brazil", "Chile","Colombia","Costa Rica","Dominican Republic","Ecuador", "El Salvador","Guatemala","Honduras","Mexico
+                                                                               ","Nicaragua","Panama","Paraguay","Peru","Uruguay"))),
+    conditionalPanel(condition = "input.radio == '4'", 
+                     selectInput("United States and Canada", "Select Country", choices = c("United States", "Canada"))
+    )
   ),
   mainPanel(
     h3(textOutput("add1")),
