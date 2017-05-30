@@ -17,9 +17,8 @@ source("./scripts/artistTrack.R")
 
 
 shinyServer(function(input, output) {
-  artist.id<-ArtistID("Beyonce")
-  df<-CountryTopTrack2(artist.id, "US")
-  df<- df %>% select(name,popularity)
+
+  
   
   # datasetInput <- reactive({
   #   switch(input$dataset,
