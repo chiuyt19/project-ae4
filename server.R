@@ -11,10 +11,10 @@ library("dplyr")
 #   
 # }
 
-source("./scripts/artistTrack.R")
-# artist.id<-ArtistID("input$text")
-# df<-CountryTopTrack2(artist.id, "US")
-
+source("./scripts/SpotifyToolUpdated.R")
+temp<-GetArtist("Drake")
+df<-GetTopTrack(temp$id,input$`Asia Pacific`)
+df<-df %>% select(name,popularity)
 
 shinyServer(function(input, output) {
 
@@ -28,12 +28,12 @@ shinyServer(function(input, output) {
   # })
   # 
   # a large table, reative to input$show_vars
-  # output$view <- renderTable({
-  #   df
-  # })
-  output$ex3 <- DT::renderDataTable(
-    DT::datatable(df, options = list(paging = FALSE,searching = FALSE))
-  )
-  
+  output$view <- renderTable({
+    df
+  })
+  # output$ex3 <- DT::renderDataTable(
+  #   DT::datatable(df, options = list(paging = FALSE,searching = FALSE))
+  # )
+  # 
   
 })

@@ -7,7 +7,7 @@ shinyUI(
                       
                       
                       sidebarPanel(
-                        textInput("text", label = h3("Search Artists")),
+                        textInput("text", label = h3("Search Artists"),value = "Drake"),
                         radioButtons("radio", label = h3("Select Region"),
                                      choices = list("Asia Pacific" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
                         conditionalPanel(condition = "input.radio == '1'",
@@ -24,7 +24,7 @@ shinyUI(
                         )
                                          ),
                       mainPanel(
-                        dataTableOutput('ex3')
+                        tableOutput('view')
                       )
   ),
   tabPanel("Popularity By Region",
@@ -32,7 +32,7 @@ shinyUI(
            
            
            sidebarPanel(
-             textInput("text", label = h3("Search Artists")),
+             textInput("text2", label = h3("Search Artists")),
              radioButtons("radio", label = h3("Select Region"),
                           choices = list("Asia Pacific" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
              conditionalPanel(condition = "input.radio == '1'",
