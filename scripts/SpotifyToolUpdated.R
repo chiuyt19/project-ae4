@@ -1,6 +1,6 @@
 library(dplyr)
 library(httr)
-
+library(jsonlite)
 # Returns the token needed to access the API
 # Used to create HeaderValue
 # Ex.) HeaderValue = paste0('Bearer ', GetSpotifyToken())
