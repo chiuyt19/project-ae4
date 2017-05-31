@@ -1,7 +1,8 @@
 library(shiny)
 library(dplyr)
+
 shinyUI(
-  navbarPage(img(src='myimage.png',width = "30", height = "30"),
+  navbarPage(img(src='myimage.png',width = "30", height = "30"),theme = "bootstrap.css",
              tabPanel("Popularity By Region",
                       titlePanel("Final Project"),
                       
@@ -27,7 +28,7 @@ shinyUI(
                         tableOutput('view')
                       )
   ),
-  tabPanel("Popularity By Region",
+  tabPanel("Spotify Graph",
            titlePanel("Final Project"),
            
            
@@ -47,15 +48,21 @@ shinyUI(
              conditionalPanel(condition = "input.radio == '4'",
                               selectInput("United States and Canada", "Select Country", choices = c("United States", "Canada"))
              )
-                              ),
+           ),
            mainPanel(
              dataTableOutput('ex2')
            )
+  ),
+  tabPanel("Documentation",
+           mainPanel(includeMarkdown("./markdown/README.md")
+           
+           )
+  
   )
   
-             )
-             )
-
+  
+)
+)
 
 
 
