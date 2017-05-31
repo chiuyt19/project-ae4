@@ -3,37 +3,43 @@ library("httr")
 library("ggplot2")
 library("dplyr")
 
-
-# function(input, output) {
-#   output$value <- renderPrint({ input$text })
-#   output$value <- renderPrint({ input$radio })
-#   output$value <- renderPrint({ input$select })
-#   
-# }
-
 source("./scripts/SpotifyToolUpdated.R")
-temp<-GetArtist("Drake")
-df<-GetTopTrack(temp$id,'US')
-df<-df %>% select(name,popularity)
+
+# temp<-GetArtist("Beyonce")
+# us<-GetTopTrack(temp$id,'US')
+# au<-GetTopTrack(temp$id, 'AU')
+# df<-df %>% select(name,popularity)
+
+
 
 shinyServer(function(input, output) {
-
+  # React as the input changes 
+  country <- reactive({switch(
+    input$radio,
+    "1" = input$AsiaPacific,
+    "2" = input$Europe,
+    "3" = input$LatinAmerica,
+    "4" = input$UnitedStateCanada
+  )})
   
-  
-  # datasetInput <- reactive({
-  #   switch(input$dataset,
-  #          "rock" = rock,
-  #          "pressure" = pressure,
-  #          "cars" = cars)
-  # })
-  # 
-  # a large table, reative to input$show_vars
-  output$view <- renderTable({
-    df
+  # React and pass the input value to the function and get the data frame 
+  value <- reactive({
+    temp<-GetArtist(input$text)
+    df<-GetTopTrack(temp$id, country())
+    df<-df %>% select(name,popularity,id)
+    df$audio<-paste0('<iframe src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:', df$id,'"',
+                     ' width="250" height="80" frameborder="0" allowtransparency="true"></iframe>')
+    # df$audio<-tags$iframe(src = paste0("https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:", df$id), width = 300, height =80)
+    df<-df %>% select(name,popularity)
   })
-  # output$ex3 <- DT::renderDataTable(
-  #   DT::datatable(df, options = list(paging = FALSE,searching = FALSE))
-  # )
-  # 
+  
+  
+  
+  
+  
+  # interactive data table
+  output$view <- renderDataTable({
+    value()
+  })
   
 })
