@@ -13,7 +13,7 @@ library("dplyr")
 
 source("./scripts/SpotifyToolUpdated.R")
 temp<-GetArtist("Drake")
-df<-GetTopTrack(temp$id,input$`Asia Pacific`)
+df<-GetTopTrack(temp$id,'US')
 df<-df %>% select(name,popularity)
 
 shinyServer(function(input, output) {
