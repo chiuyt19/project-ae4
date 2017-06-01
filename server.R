@@ -1,3 +1,4 @@
+library("DT")
 library("shiny")
 library("httr")
 library("ggplot2")
@@ -40,6 +41,55 @@ shinyServer(function(input, output) {
     df<-df %>% select(pic,albumname,name,popularity) %>% arrange(desc(popularity))
   })
   
+  # stores user ID
+  userID <- reactive({
+    input$user_id
+  })
+  
+  # stores playlist ID
+  playlistID <- reactive ({
+    input$playlist_id
+  })
+  
+  # stores first playlist feature
+  xLab <- reactive ({
+    input$xlab
+  })
+  
+  # stores second playlist feature
+  yLab <- reactive({
+    input$ylab
+  })
+  
+  # grabs playlist and track info and stores neccessary information into a data frame
+  data <- reactive({
+    playlist.data <- GetPlaylistInfo(userID(), playlistID())
+    playlist.df <- data.frame(playlist.data)
+    playlist.length <- nrow(playlist.df)
+    audfeat <- data.frame()
+    for (i in 1:playlist.length) {
+      curr <- data.frame(GetTrackInfo(playlist.df$track$id[i]))
+      audfeat <- rbind(curr, audfeat)
+    }
+    audfeat$popularity <- paste(playlist.df$track$popularity)
+    audfeat$track <- paste(playlist.df$track$name)
+    audfeat <- select_(audfeat, x = xLab(), y = yLab(), 'track')
+    if (ncol(audfeat) == 2) {
+      audfeat <- mutate(audfeat, x = audfeat[, 1])
+    }
+    print(audfeat)
+  })
+  
+  # renders plot of the playlist features selected by the user
+  output$plot <- renderPlotly({
+    df <- data()
+    print(df)
+    print(xLab())
+    plot(df$x, df$y)
+    plot_ly(data = df, x = ~df$x, y = ~df$y, type = 'scatter', marker = list(color = "rgb(106,227,104)"), text = ~paste("Track Name: ", df$track)) %>% 
+      layout(xaxis = list(title = df$x), yaxis = list(title = df$y), title = "Playlist Features")
+  }
+  )
   
   
   

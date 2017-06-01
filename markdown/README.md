@@ -5,8 +5,8 @@
 ### **What data did we use?**
 We used Spotify's API to get the data we were interested in.
 <br>
-### **What Can You Do?**
-Our Project allows you to type in your favorite artists and see, by region,
+### **What can you do?**
+Our project allows you to type in your favorite artists and see, by region,
 what their most popular songs are. This lets you see firsthand, how connected
 the world can be through music. Were your favorite songs popular in countries
 you've never been to? Now you can see how similar your tastes are to people
@@ -20,7 +20,7 @@ liveness, valence, tempo, popularity, or duration!
 ### **Glossary of Terms:**
 **Acousticness:** A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
 
-**Danceability:** describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+**Danceability:** Describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
 
 **Duration_ms:** The duration of the track in milliseconds.
 
@@ -28,7 +28,7 @@ liveness, valence, tempo, popularity, or duration!
 
 **Liveness:** Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
 
-**Speechiness:** detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
+**Speechiness:** Detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
 
 **Tempo:** The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
 
@@ -37,5 +37,5 @@ liveness, valence, tempo, popularity, or duration!
 All metrics can be found on Spotify's Web API website [here](https://developer.spotify.com/web-api/get-audio-features/).
 
 <br>
-### **Where Can You Find Our Code?**
+### **Where can you find our code?**
 All of our code can be found in our [GitHub repository](https://github.com/chiuyt19/project-ae4).

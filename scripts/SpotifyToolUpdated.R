@@ -56,13 +56,23 @@ GetTopTrack<-function(artistID,my_country){
   return(tempo$tracks)
 }
 
-#temp2<-GetTopTrack(temp$id,"US")
-
+# Takes a user ID and a playlist ID
+# RETURNS: Dataframe with information on playlist and tracks in playlist
 GetPlaylistInfo <- function(user_id, playlist_id){
   HeaderValue = paste0('Bearer ', GetToken())
   URI = paste0('https://api.spotify.com/v1/users/', user_id,'/playlists/', playlist_id)
   response = GET(url = URI, add_headers(Authorization = HeaderValue))
   playlist_info = fromJSON(content(response, "text"))
   return(playlist_info$tracks$items)
+}
+
+# Takes a track ID 
+# RETURNS: Dataframe of that track's information
+GetTrackInfo <- function(trackid){
+  
+  HeaderValue = paste0('Bearer ', GetToken())
+  URI = paste0("https://api.spotify.com/v1/audio-features/", trackid)
+  response = GET(url = URI, add_headers(Authorization = HeaderValue))
+  as.data.frame(stringsAsFactors  = FALSE, content(response))
 }
 
