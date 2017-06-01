@@ -4,11 +4,12 @@ library(dplyr)
 shinyUI(
   navbarPage(img(src='myimage.png',width = "30", height = "30"),theme = "bootstrap.css",
              tabPanel("Popularity By Region",
-                      titlePanel("Final Project"),
+                      titlePanel("Top Ten Track by Region"),
                       
                       
                       sidebarPanel(
                         textInput("text", label = h3("Search Artists"),value = "Beyonce"),
+                        helpText("This version does not support characters with space"),
                         radioButtons("radio", label = h3("Select Region"),
                                      choices = list("Asia Pacific" = "1", "Europe" = "2", "Latin America" = "3", "United States and Canada" = "4")),
                         conditionalPanel(condition = "input.radio == '1'",
