@@ -26,12 +26,6 @@ shinyServer(function(input, output) {
     #make it into a dataframe
     my.matrix<-do.call("rbind",imgs)
     imgs.df<-as.data.frame(my.matrix, stringsAsFactors=FALSE)
-    #make sure they are numeric and character so we can use it 
-    imgs.df$width<-as.numeric(imgs.df$width)
-    imgs.df$height<-as.numeric(imgs.df$height)
-    imgs.df$url<-as.character(imgs.df$url)
-    
-    
     
     #filter to the smallest size picture
     imgs.df<-imgs.df %>% filter(width==64)
@@ -61,3 +55,4 @@ shinyServer(function(input, output) {
   
   
 })
+

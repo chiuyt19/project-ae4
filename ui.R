@@ -27,7 +27,7 @@ shinyUI(
                         
                                          ),
                       mainPanel(
-                        dataTableOutput('view')
+                        DT::dataTableOutput('view')
                       )
   ),
   tabPanel("Spotify Graph",
