@@ -87,7 +87,7 @@ shinyServer(function(input, output) {
     print(xLab())
     plot(df$x, df$y)
     plot_ly(data = df, x = ~df$x, y = ~df$y, type = 'scatter', marker = list(color = "rgb(106,227,104)"), text = ~paste("Track Name: ", df$track)) %>% 
-      layout(xaxis = list(title = df$x), yaxis = list(title = df$y), title = "Playlist Features")
+      layout(xaxis = list(title = input$xlab), yaxis = list(title = input$ylab), title = "Playlist Features")
   }
   )
   
