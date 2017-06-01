@@ -43,7 +43,7 @@ shinyServer(function(input, output) {
     df$albumname<- name
     
     #only select the stuff we want 
-    df<-df %>% select(pic,albumname,name,popularity)
+    df<-df %>% select(pic,albumname,name,popularity) %>% arrange(desc(popularity))
   })
   
   
@@ -52,7 +52,8 @@ shinyServer(function(input, output) {
   
   # interactive data table
   output$view <- DT::renderDataTable({
-    DT::datatable(value(),escape = FALSE, options = list(paging = FALSE, order = list(4, 'desc')),
+    DT::datatable(value(),escape = FALSE, options = list(paging = FALSE, order = list(4, 'desc'), 
+                                                         columnDefs = list(list(className = 'dt-center', targets = "_all"))),
                   colnames = c("Album Pic","Album Name","Song Name","Song Popularity"),class = 'cell-border stripe')
   })
   
