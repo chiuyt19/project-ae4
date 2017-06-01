@@ -58,5 +58,11 @@ GetTopTrack<-function(artistID,my_country){
 
 #temp2<-GetTopTrack(temp$id,"US")
 
-
+GetPlaylistInfo <- function(user_id, playlist_id){
+  HeaderValue = paste0('Bearer ', GetToken())
+  URI = paste0('https://api.spotify.com/v1/users/', user_id,'/playlists/', playlist_id)
+  response = GET(url = URI, add_headers(Authorization = HeaderValue))
+  playlist_info = fromJSON(content(response, "text"))
+  return(playlist_info$tracks$items)
+}
 

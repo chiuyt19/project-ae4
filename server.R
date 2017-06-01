@@ -5,12 +5,6 @@ library("dplyr")
 
 source("./scripts/SpotifyToolUpdated.R")
 
-# temp<-GetArtist("Beyonce")
-# us<-GetTopTrack(temp$id,'US')
-# au<-GetTopTrack(temp$id, 'AU')
-# df<-df %>% select(name,popularity)
-
-
 
 shinyServer(function(input, output) {
   # React as the input changes 
@@ -26,11 +20,30 @@ shinyServer(function(input, output) {
   value <- reactive({
     temp<-GetArtist(input$text)
     df<-GetTopTrack(temp$id, country())
-    df<-df %>% select(name,popularity,id)
-    df$audio<-paste0('<iframe src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:', df$id,'"',
-                     ' width="250" height="80" frameborder="0" allowtransparency="true"></iframe>')
-    # df$audio<-tags$iframe(src = paste0("https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:", df$id), width = 300, height =80)
-    df<-df %>% select(name,popularity)
+    
+    #retreive the list inside whole toptack data
+    imgs<-df$album$images
+    #make it into a dataframe
+    my.matrix<-do.call("rbind",imgs)
+    imgs.df<-as.data.frame(my.matrix, stringsAsFactors=FALSE)
+    #make sure they are numeric and character so we can use it 
+    imgs.df$width<-as.numeric(imgs.df$width)
+    imgs.df$height<-as.numeric(imgs.df$height)
+    imgs.df$url<-as.character(imgs.df$url)
+    
+    
+    
+    #filter to the smallest size picture
+    imgs.df<-imgs.df %>% filter(width==64)
+    #make it back to the dataframe we want to use
+    df$pic<- paste0('<img src="', imgs.df$url,'" height="64"></img>')
+    #retreive the name of album
+    name<-df$album$name
+    #paste it back to the dataframe we want to use
+    df$albumname<- name
+    
+    #only select the stuff we want 
+    df<-df %>% select(pic,albumname,name,popularity)
   })
   
   
@@ -38,8 +51,12 @@ shinyServer(function(input, output) {
   
   
   # interactive data table
-  output$view <- renderDataTable({
-    value()
+  output$view <- DT::renderDataTable({
+    DT::datatable(value(),escape = FALSE, options = list(paging = FALSE, order = list(4, 'desc')),
+                  colnames = c("Album Pic","Album Name","Song Name","Song Popularity"),class = 'cell-border stripe')
   })
+  
+  
+  
   
 })
